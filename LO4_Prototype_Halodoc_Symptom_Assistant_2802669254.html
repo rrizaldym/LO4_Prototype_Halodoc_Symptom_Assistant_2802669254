@@ -1,0 +1,477 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .phone-frame {
+    width: 280px;
+    height: 560px;
+    background: #fff;
+    border-radius: 36px;
+    border: 8px solid #1a1a1a;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+  }
+
+  .notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 24px;
+    background: #1a1a1a;
+    border-radius: 0 0 16px 16px;
+    z-index: 100;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 36px 16px 20px;
+    display: none;
+    background: #FAFAFA;
+  }
+
+  .screen.active { display: block; }
+
+  /* Screen 1 - Input */
+  .screen1 .header { margin-bottom: 20px; }
+  .screen1 h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+  .screen1 .subtext {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .input-area {
+    background: #fff;
+    border: 2px dashed #E91E8C;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 16px;
+    min-height: 120px;
+  }
+  .input-area .placeholder {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.6;
+  }
+  .input-area .typed {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  .btn-primary {
+    width: 100%;
+    background: #E91E8C;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+
+  .note {
+    font-size: 10px;
+    color: #888;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* Screen 2 - Screening */
+  .screen2 h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 30%;
+    background: #E91E8C;
+    border-radius: 2px;
+  }
+  .progress-text {
+    font-size: 10px;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  .question-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1px solid #eee;
+  }
+  .question-card p {
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .toggle-group {
+    display: flex;
+    gap: 8px;
+  }
+  .toggle-btn {
+    flex: 1;
+    padding: 8px 0;
+    border-radius: 8px;
+    border: 1.5px solid #ddd;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .toggle-btn.selected {
+    background: #E91E8C;
+    color: white;
+    border-color: #E91E8C;
+  }
+
+  /* Screen 3 - Result */
+  .screen3 .urgency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFF3CD;
+    border: 1px solid #FFE082;
+    color: #B7791F;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .screen3 .urgency-badge .dot {
+    width: 8px;
+    height: 8px;
+    background: #F59E0B;
+    border-radius: 50%;
+  }
+
+  .screen3 h1 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .info-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1px solid #eee;
+  }
+  .info-card h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  .info-card p {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .safety-warning {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .safety-warning h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #DC2626;
+    margin-bottom: 4px;
+  }
+  .safety-warning p {
+    font-size: 10px;
+    color: #991B1B;
+    line-height: 1.5;
+  }
+
+  .disclaimer {
+    font-size: 9px;
+    color: #999;
+    text-align: center;
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+
+  /* Screen 4 - Recommendation */
+  .screen4 h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .service-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #eee;
+    margin-bottom: 16px;
+  }
+  .service-card .icon {
+    width: 40px;
+    height: 40px;
+    background: #FCE7F3;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  .service-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+  .service-card p {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .service-card .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .service-card .price-row span {
+    font-size: 11px;
+    color: #888;
+  }
+  .service-card .price-row .price {
+    font-size: 13px;
+    font-weight: 600;
+    color: #E91E8C;
+  }
+
+  .btn-outline {
+    width: 100%;
+    background: transparent;
+    color: #666;
+    border: 1.5px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover {
+    border-color: #E91E8C;
+    color: #E91E8C;
+  }
+
+  .screen-label {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .nav-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-dot.active { background: #E91E8C; }
+
+  /* Scrollbar hide */
+  .screen::-webkit-scrollbar { display: none; }
+  .screen { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<div class="phone-frame">
+  <div class="notch"></div>
+
+  <!-- SCREEN 1: INPUT KELUHAN -->
+  <div class="screen screen1 active" id="screen1">
+    <div class="header">
+      <h1>Ceritakan keluhanmu</h1>
+      <p class="subtext">Jelaskan apa yang kamu rasakan dengan bahasa sehari-hari.</p>
+    </div>
+
+    <div class="input-area">
+      <p class="typed">Saya sudah 3 hari demam dan batuk, badan juga lemas. Sejak kemarin agak sesak kalau banyak aktivitas.</p>
+    </div>
+
+    <button class="btn-primary" onclick="goToScreen(2)">Lanjutkan</button>
+
+    <p class="note">Informasi yang kamu berikan digunakan untuk membantu skrining awal.</p>
+  </div>
+
+  <!-- SCREEN 2: PERTANYAAN SKRINING -->
+  <div class="screen screen2" id="screen2">
+    <h1>Beberapa pertanyaan untuk memahami keluhanmu</h1>
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <p class="progress-text">3 dari beberapa pertanyaan</p>
+
+    <div class="question-card">
+      <p>Apakah sesak napas terasa semakin berat?</p>
+      <div class="toggle-group">
+        <button class="toggle-btn selected">Tidak</button>
+        <button class="toggle-btn">Ya</button>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <p>Apakah kamu mengalami nyeri dada?</p>
+      <div class="toggle-group">
+        <button class="toggle-btn selected">Tidak</button>
+        <button class="toggle-btn">Ya</button>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <p>Apakah demam sudah berlangsung lebih dari 3 hari?</p>
+      <div class="toggle-group">
+        <button class="toggle-btn">Tidak</button>
+        <button class="toggle-btn selected">Ya</button>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="goToScreen(3)" style="margin-top: 8px;">Lanjutkan</button>
+  </div>
+
+  <!-- SCREEN 3: HASIL SKRINING -->
+  <div class="screen screen3" id="screen3">
+    <div class="urgency-badge">
+      <span class="dot"></span>
+      Konsultasi hari ini
+    </div>
+
+    <h1>Berdasarkan informasi yang kamu berikan, disarankan berkonsultasi dengan dokter hari ini.</h1>
+
+    <div class="info-card">
+      <h3>Mengapa?</h3>
+      <p>Kamu menyebutkan demam dan sesak yang sudah berlangsung selama beberapa hari. Keluhan tersebut perlu dinilai lebih lanjut oleh tenaga kesehatan.</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Apa yang bisa kamu lakukan?</h3>
+      <p>Kamu dapat berkonsultasi dengan dokter umum melalui Halodoc.</p>
+    </div>
+
+    <button class="btn-primary" onclick="goToScreen(4)">Konsultasi dengan Dokter</button>
+
+    <div class="safety-warning">
+      <h4>⚠️ Perhatian</h4>
+      <p>Jika sesak menjadi berat, muncul nyeri dada, pingsan, atau kondisi memburuk secara cepat, segera cari pertolongan medis.</p>
+    </div>
+
+    <p class="disclaimer">Hasil ini merupakan panduan awal dan bukan diagnosis medis.</p>
+  </div>
+
+  <!-- SCREEN 4: REKOMENDASI LAYANAN -->
+  <div class="screen screen4" id="screen4">
+    <h1>Rekomendasi untukmu</h1>
+
+    <div class="service-card">
+      <div class="icon">👨‍⚕️</div>
+      <h3>Dokter Umum</h3>
+      <p>Berdasarkan hasil skrining, konsultasi dengan dokter umum dapat menjadi langkah berikutnya untuk evaluasi lebih lanjut.</p>
+      <div class="price-row">
+        <span>Chat dengan dokter</span>
+        <span class="price">Mulai dari Rp50.000</span>
+      </div>
+    </div>
+
+    <button class="btn-primary">Pilih Dokter</button>
+    <button class="btn-outline" onclick="goToScreen(3)" style="margin-top: 10px;">Kembali ke hasil skrining</button>
+  </div>
+</div>
+
+<div style="text-align: center;">
+  <p class="screen-label" id="screenLabel">Screen 1 — Input Keluhan</p>
+  <div class="nav-dots">
+    <div class="nav-dot active" onclick="goToScreen(1)"></div>
+    <div class="nav-dot" onclick="goToScreen(2)"></div>
+    <div class="nav-dot" onclick="goToScreen(3)"></div>
+    <div class="nav-dot" onclick="goToScreen(4)"></div>
+  </div>
+  <p style="font-size: 11px; color: #999; margin-top: 8px;">Tap dots or buttons to navigate</p>
+</div>
+
+<script>
+  function goToScreen(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+    document.getElementById('screen' + n).classList.add('active');
+    document.querySelectorAll('.nav-dot')[n-1].classList.add('active');
+
+    const labels = [
+      'Screen 1 — Input Keluhan',
+      'Screen 2 — Pertanyaan Skrining',
+      'Screen 3 — Hasil Skrining',
+      'Screen 4 — Rekomendasi Layanan'
+    ];
+    document.getElementById('screenLabel').textContent = labels[n-1];
+  }
+</script>
